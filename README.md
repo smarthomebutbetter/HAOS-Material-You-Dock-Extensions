@@ -1,17 +1,31 @@
 <div align="center">
-  <img src="./images/00-haos-view-dark.png" alt="HAOS Material You Dock Preview" width="100%">
-  <h1 align="center">HAOS Material You Dock</h1>
-  <p align="center">
-    Modernes Home Assistant UI im Material You Stil mit Bottom Dock, Swipe Tabs und Feature Cards.
-  </p>
-</div>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Home_Assistant-Dashboard-41BDF5?style=for-the-badge">
-  <img src="https://img.shields.io/badge/style-Material_You-8b9cf6?style=for-the-badge">
-  <img src="https://img.shields.io/badge/license-MIT-black?style=for-the-badge">
-  <img src="https://img.shields.io/badge/platform-Android_%26_iOS-4caf50?style=for-the-badge">
-</p>
+  <img src="./images/00-haos-view-dark.png" alt="HAOS Material You Dock Preview" width="100%">
+
+  <h1>HAOS Material You Dock</h1>
+
+  <p>Modernes Home Assistant UI im Material You Stil mit Bottom Dock, Swipe Tabs und modularen Feature Cards.</p>
+
+  <p>
+    <img src="https://img.shields.io/badge/Home_Assistant-Dashboard-41BDF5?style=for-the-badge&logo=homeassistant&logoColor=white">
+    <img src="https://img.shields.io/badge/style-Material_You-8b9cf6?style=for-the-badge">
+    <img src="https://img.shields.io/badge/license-MIT-black?style=for-the-badge">
+    <img src="https://img.shields.io/badge/platform-Android_%26_iOS-4caf50?style=for-the-badge&logo=android&logoColor=white">
+  </p>
+
+  <p>
+    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen/stargazers">
+      <img src="https://img.shields.io/github/stars/Mxipe07/HAOS-Material-You-Dock-Erweiterungen?style=social" alt="GitHub Stars">
+    </a>
+    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen/issues">
+      <img src="https://img.shields.io/github/issues/Mxipe07/HAOS-Material-You-Dock-Erweiterungen" alt="Open Issues">
+    </a>
+    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen/commits">
+      <img src="https://img.shields.io/github/last-commit/Mxipe07/HAOS-Material-You-Dock-Erweiterungen" alt="Last Commit">
+    </a>
+  </p>
+
+</div>
 
 ---
 
@@ -24,7 +38,7 @@ Das Projekt enthält wiederverwendbare YAML-Komponenten für:
 - Swipe Tabs / Filterleisten
 - Feature Cards
 
-Optimiert für **Dark Mode** und **Light Mode**.
+Optimiert für **Dark Mode / Light Mode**.
 
 ---
 
@@ -34,77 +48,74 @@ Optimiert für **Dark Mode** und **Light Mode**.
 
 | Dark Mode | Light Mode |
 |---|---|
-| ![](./images/00-haos-view-dark.png) | ![](./images/00-haos-view-light.png) |
+| ![Dark](./images/00-haos-view-dark.png) | ![Light](./images/00-haos-view-light.png) |
 
 ---
 
 ## Komponenten
 
-## Bottom Dock Navigation
+### Bottom Dock Navigation
 
 | Dark | Light |
 |---|---|
-| ![](./images/01-bottom-dock-dark.png) | ![](./images/01-bottom-dock-light.png) |
+| ![Dark](./images/01-bottom-dock-dark.png) | ![Light](./images/01-bottom-dock-light.png) |
 
-Fixierte Navigation am unteren Bildschirmrand mit aktiven Zuständen, Animationen und Theme-Anpassung.
+Fixierte Navigation am unteren Bildschirmrand mit Animationen und Theme-Anpassung.
 
-### Datei
-`01-bottom-dock.yaml`
+**Datei:** `01-bottom-dock.yaml`
 
-### Anpassbar
+**Anpassbar:**
 - `navigation_path`
 - Icons
 - Labels
-- optionale Profil-/Avatar-Quelle
+- Avatar / Profilbild
 
 ---
 
-## Swipe Tabs
+### Swipe Tabs
 
 | Dark | Light |
 |---|---|
-| ![](./images/02-swipe-tabs-dark.png) | ![](./images/02-swipe-tabs-light.png) |
+| ![Dark](./images/02-swipe-tabs-dark.png) | ![Light](./images/02-swipe-tabs-light.png) |
 
-Horizontale Tab-Leiste mit dynamischen Pills und Swipe-Verhalten.
+Horizontale Tab-Leiste mit dynamischen Pills und Swipe-Navigation.
 
-### Datei
-`02-swipe-tabs.yaml`
+**Datei:** `02-swipe-tabs.yaml`
 
-### Anpassbar
-- aktive Helper-Entity
-- Tab-Namen
-- Icons
-- Optionen / Zustände
+**Anpassbar:**
+- Helper-Entity
+- Tabs & Icons
+- Zustände / Filter
 
 ---
 
-## Feature Cards
+### Feature Cards
 
 | Dark | Light |
 |---|---|
-| ![](./images/03-feature-cards-dark.png) | ![](./images/03-feature-cards-light.png) |
+| ![Dark](./images/03-feature-cards-dark.png) | ![Light](./images/03-feature-cards-light.png) |
 
-Material-inspirierte Schnellzugriffskarten für wichtige Dashboard-Bereiche.
+Material-inspirierte Schnellzugriffskarten.
 
-### Datei
-`03-feature-cards.yaml`
+**Datei:** `03-feature-cards.yaml`
 
-### Anpassbar
+**Anpassbar:**
 - `navigation_path`
 - Icons
 - Farben
-- Beschriftungen
+- Texte
 
 ---
 
 ## Features
 
-- Material You inspirierter Look
-- Dark / Light Mode Support
-- Flüssige Animationen
-- Mobile optimiert
-- Wiederverwendbare YAML-Komponenten
-- Einfache Anpassung an eigene Dashboards
+| Feature | Status |
+|---|---|
+| Material You Design | ✅ |
+| Dark / Light Mode | ✅ |
+| Animationen | ✅ |
+| Mobile optimiert | ✅ |
+| Wiederverwendbare Komponenten | ✅ |
 
 ---
 
@@ -115,34 +126,11 @@ Material-inspirierte Schnellzugriffskarten für wichtige Dashboard-Bereiche.
 - `card-mod`
 - `swipe-card`
 
-**Empfohlen:**
-- Material You Theme oder eigenes angepasstes Theme
+👉 Empfohlen: eigenes Material You Theme
 
 ---
 
 ## Installation
 
-1. YAML-Dateien in dein Dashboard übernehmen
-2. Eigene Entitäten und `navigation_path` anpassen
-3. Optional Theme aktivieren
-4. Fertig
-
----
-
-## Dateien
-
-- `01-bottom-dock.yaml` → Bottom Navigation
-- `02-swipe-tabs.yaml` → Tabs / Filterleiste
-- `03-feature-cards.yaml` → UI Karten
-
----
-
-## Hinweise
-
-Die verwendeten Navigationen wie z. B. `#cameras`, `#lighting` oder `#climate` sind Platzhalter und müssen an dein eigenes Dashboard angepasst werden.
-
----
-
-## Lizenz
-
-MIT License
+```bash
+git clone https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen.git
