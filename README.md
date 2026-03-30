@@ -32,7 +32,7 @@
 
 ## ✨ Überblick
 
-**HAOS Material You Dock** ist ein modernes, mobiles Dashboard-UI für Home Assistant.
+**Material You Dock Extensions** ist ein modernes, mobiles Dashboard-UI für Home Assistant.
 
 Das Projekt bietet wiederverwendbare Komponenten für ein sauberes, performantes und modernes UI:
 
