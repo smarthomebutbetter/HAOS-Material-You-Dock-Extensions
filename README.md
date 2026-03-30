@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>HAOS</h1> 
+  <h2>HAOS</h2> 
   <h1>Material You</h1>
   <h1>Dock Extensions</h1>
 
