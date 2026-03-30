@@ -1,7 +1,5 @@
 <div align="center">
 
-  <img src="./images/00-haos-view-dark.png" alt="HAOS Material You Dock Preview" width="100%">
-
   <h1>HAOS Material You Dock</h1>
 
   <p><b>Modernes Home Assistant UI im Material You Stil</b><br>
