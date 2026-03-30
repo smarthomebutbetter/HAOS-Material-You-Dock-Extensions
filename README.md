@@ -4,7 +4,8 @@
 
   <h1>HAOS Material You Dock</h1>
 
-  <p>Modernes Home Assistant UI im Material You Stil mit Bottom Dock, Swipe Tabs und modularen Feature Cards.</p>
+  <p><b>Modernes Home Assistant UI im Material You Stil</b><br>
+  Bottom Dock • Swipe Tabs • Feature Cards</p>
 
   <p>
     <img src="https://img.shields.io/badge/Home_Assistant-Dashboard-41BDF5?style=for-the-badge&logo=homeassistant&logoColor=white">
@@ -14,35 +15,38 @@
   </p>
 
   <p>
-    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen/stargazers">
-      <img src="https://img.shields.io/github/stars/Mxipe07/HAOS-Material-You-Dock-Erweiterungen?style=social" alt="GitHub Stars">
+    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Extensions/stargazers">
+      <img src="https://img.shields.io/github/stars/Mxipe07/HAOS-Material-You-Dock-Extensions?style=social">
     </a>
-    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen/issues">
-      <img src="https://img.shields.io/github/issues/Mxipe07/HAOS-Material-You-Dock-Erweiterungen" alt="Open Issues">
+    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Extensions/issues">
+      <img src="https://img.shields.io/github/issues/Mxipe07/HAOS-Material-You-Dock-Extensions">
     </a>
-    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen/commits">
-      <img src="https://img.shields.io/github/last-commit/Mxipe07/HAOS-Material-You-Dock-Erweiterungen" alt="Last Commit">
+    <a href="https://github.com/Mxipe07/HAOS-Material-You-Dock-Extensions/commits">
+      <img src="https://img.shields.io/github/last-commit/Mxipe07/HAOS-Material-You-Dock-Extensions">
     </a>
   </p>
+
+  <p><b>⚡ Schnell starten:</b> YAML kopieren → anpassen → fertig</p>
 
 </div>
 
 ---
 
-## Überblick
+## ✨ Überblick
 
-**HAOS Material You Dock** ist ein modernes, mobiles Dashboard-UI für Home Assistant.  
-Das Projekt enthält wiederverwendbare YAML-Komponenten für:
+**HAOS Material You Dock** ist ein modernes, mobiles Dashboard-UI für Home Assistant.
 
-- Bottom Dock Navigation
-- Swipe Tabs / Filterleisten
-- Feature Cards
+Das Projekt bietet wiederverwendbare Komponenten für ein sauberes, performantes und modernes UI:
 
-Optimiert für **Dark Mode / Light Mode**.
+- Bottom Dock Navigation  
+- Swipe Tabs / Filterleisten  
+- Feature Cards  
+
+Optimiert für **Dark Mode / Light Mode** und mobile Nutzung.
 
 ---
 
-## Vorschau
+## 📸 Vorschau
 
 ### Dashboard
 
@@ -52,7 +56,7 @@ Optimiert für **Dark Mode / Light Mode**.
 
 ---
 
-## Komponenten
+## 🧩 Komponenten
 
 ### Bottom Dock Navigation
 
@@ -65,9 +69,8 @@ Fixierte Navigation am unteren Bildschirmrand mit Animationen und Theme-Anpassun
 **Datei:** `01-bottom-dock.yaml`
 
 **Anpassbar:**
-- `navigation_path`
-- Icons
-- Labels
+- Navigation (`navigation_path`)
+- Icons & Labels
 - Avatar / Profilbild
 
 ---
@@ -78,7 +81,7 @@ Fixierte Navigation am unteren Bildschirmrand mit Animationen und Theme-Anpassun
 |---|---|
 | ![Dark](./images/02-swipe-tabs-dark.png) | ![Light](./images/02-swipe-tabs-light.png) |
 
-Horizontale Tab-Leiste mit dynamischen Pills und Swipe-Navigation.
+Horizontale Tab-Leiste mit dynamischen Pills und Swipe-Verhalten.
 
 **Datei:** `02-swipe-tabs.yaml`
 
@@ -95,42 +98,41 @@ Horizontale Tab-Leiste mit dynamischen Pills und Swipe-Navigation.
 |---|---|
 | ![Dark](./images/03-feature-cards-dark.png) | ![Light](./images/03-feature-cards-light.png) |
 
-Material-inspirierte Schnellzugriffskarten.
+Material-inspirierte Schnellzugriffskarten für wichtige Bereiche.
 
 **Datei:** `03-feature-cards.yaml`
 
 **Anpassbar:**
-- `navigation_path`
+- Navigation (`navigation_path`)
 - Icons
 - Farben
 - Texte
 
 ---
 
-## Features
+## 🚀 Features
 
-| Feature | Status |
-|---|---|
-| Material You Design | ✅ |
-| Dark / Light Mode | ✅ |
-| Animationen | ✅ |
-| Mobile optimiert | ✅ |
-| Wiederverwendbare Komponenten | ✅ |
-
----
-
-## Voraussetzungen
-
-- Home Assistant
-- `button-card`
-- `card-mod`
-- `swipe-card`
-
-👉 Empfohlen: eigenes Material You Theme
+- Material You Design  
+- Dark / Light Mode Support  
+- Flüssige Animationen  
+- Mobile optimiert  
+- Modular & wiederverwendbar  
+- Einfach anpassbar  
 
 ---
 
-## Installation
+## ⚙️ Voraussetzungen
+
+- Home Assistant  
+- `button-card`  
+- `card-mod`  
+- `swipe-card`  
+
+👉 Empfohlen: Material You Theme oder eigenes Theme
+
+---
+
+## 📦 Installation
 
 ```bash
-git clone https://github.com/Mxipe07/HAOS-Material-You-Dock-Erweiterungen.git
+git clone https://github.com/Mxipe07/HAOS-Material-You-Dock-Extensions.git
