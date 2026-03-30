@@ -1,0 +1,681 @@
+type: custom:mod-card
+card_mod:
+  style: |
+    :host {
+      --tab-inactive-width: 52px;
+      --tab-height: 52px;
+      --tab-radius-active: 18px;
+      --tab-radius-inactive: 999px;
+    }
+
+    ha-card {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+      padding: 2px 0 4px 0;
+    }
+
+    swiper-container,
+    .swiper,
+    .swiper-wrapper,
+    .swiper-slide {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+
+    .swiper-slide {
+      width: auto !important;
+    }
+
+card:
+  type: custom:swipe-card
+  parameters:
+    slidesPerView: auto
+    spaceBetween: 12
+    freeMode: true
+
+  cards:
+    - type: custom:button-card
+      triggers_update:
+        - input_select.active_tab
+      variables:
+        tab_key: favorites
+        icon_active: mdi:star
+        icon_inactive: mdi:star-outline
+      name: Favorites
+      icon: |
+        [[[
+          return states['input_select.active_tab']?.state === variables.tab_key
+            ? variables.icon_active
+            : variables.icon_inactive;
+        ]]]
+      tap_action:
+        action: call-service
+        service: input_select.select_option
+        data:
+          entity_id: input_select.active_tab
+          option: favorites
+      styles:
+        card:
+          - flex: 0 0 auto
+          - width: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'auto'
+                  : 'var(--tab-inactive-width)';
+              ]]]
+          - min-width: var(--tab-inactive-width)
+          - height: var(--tab-height)
+          - padding: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '10px 16px'
+                  : '10px';
+              ]]]
+          - border-radius: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'var(--tab-radius-active)'
+                  : 'var(--tab-radius-inactive)';
+              ]]]
+          - background: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+
+                if (!active) return 'var(--ha-card-background)';
+                if (hass.themes.darkMode) return '#69739a';
+
+                return `
+                  linear-gradient(rgba(148,165,255,0.22), rgba(148,165,255,0.22)),
+                  linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92))
+                `;
+              ]]]
+          - border: none
+          - box-shadow: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                if (!active) return 'none';
+
+                return hass.themes.darkMode
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.14)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90,104,160,0.06)';
+              ]]]
+          - transition: all 160ms ease
+
+        grid:
+          - grid-template-areas: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '"i n"'
+                  : '"i"';
+              ]]]
+          - grid-template-columns: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '22px auto'
+                  : '1fr';
+              ]]]
+          - column-gap: 10px
+          - align-items: center
+
+        icon:
+          - width: 22px
+          - color: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                return active
+                  ? (hass.themes.darkMode ? '#cbd6ff' : '#6676b8')
+                  : (hass.themes.darkMode ? '#5a5d63' : 'rgba(20,24,34,0.56)');
+              ]]]
+
+        name:
+          - display: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'block'
+                  : 'none';
+              ]]]
+          - font-size: 14px
+          - font-weight: 600
+          - color: |
+              [[[
+                return hass.themes.darkMode ? '#d7e0ff' : '#6676b8';
+              ]]]
+
+    - type: custom:button-card
+      triggers_update:
+        - input_select.active_tab
+      variables:
+        tab_key: devices
+        icon_active: m3rf:grid-view
+        icon_inactive: m3r:grid-view
+      name: All Devices
+      icon: |
+        [[[
+          return states['input_select.active_tab']?.state === variables.tab_key
+            ? variables.icon_active
+            : variables.icon_inactive;
+        ]]]
+      tap_action:
+        action: call-service
+        service: input_select.select_option
+        data:
+          entity_id: input_select.active_tab
+          option: devices
+      styles:
+        card:
+          - flex: 0 0 auto
+          - width: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'auto'
+                  : 'var(--tab-inactive-width)';
+              ]]]
+          - min-width: var(--tab-inactive-width)
+          - height: var(--tab-height)
+          - padding: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '10px 16px'
+                  : '10px';
+              ]]]
+          - border-radius: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'var(--tab-radius-active)'
+                  : 'var(--tab-radius-inactive)';
+              ]]]
+          - background: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+
+                if (!active) return 'var(--ha-card-background)';
+                if (hass.themes.darkMode) return '#69739a';
+
+                return `
+                  linear-gradient(rgba(148,165,255,0.22), rgba(148,165,255,0.22)),
+                  linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92))
+                `;
+              ]]]
+          - border: none
+          - box-shadow: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                if (!active) return 'none';
+
+                return hass.themes.darkMode
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.14)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90,104,160,0.06)';
+              ]]]
+          - transition: all 160ms ease
+
+        grid:
+          - grid-template-areas: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '"i n"'
+                  : '"i"';
+              ]]]
+          - grid-template-columns: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '22px auto'
+                  : '1fr';
+              ]]]
+          - column-gap: 10px
+          - align-items: center
+
+        icon:
+          - width: 22px
+          - color: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                return active
+                  ? (hass.themes.darkMode ? '#cbd6ff' : '#6676b8')
+                  : (hass.themes.darkMode ? '#5a5d63' : 'rgba(20,24,34,0.56)');
+              ]]]
+
+        name:
+          - display: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'block'
+                  : 'none';
+              ]]]
+          - font-size: 14px
+          - font-weight: 600
+          - color: |
+              [[[
+                return hass.themes.darkMode ? '#d7e0ff' : '#6676b8';
+              ]]]
+
+    - type: custom:button-card
+      triggers_update:
+        - input_select.active_tab
+      variables:
+        tab_key: cameras
+        icon_active: m3rf:videocam
+        icon_inactive: m3o:videocam
+      name: Cameras
+      icon: |
+        [[[
+          return states['input_select.active_tab']?.state === variables.tab_key
+            ? variables.icon_active
+            : variables.icon_inactive;
+        ]]]
+      tap_action:
+        action: call-service
+        service: input_select.select_option
+        data:
+          entity_id: input_select.active_tab
+          option: cameras
+      styles:
+        card:
+          - flex: 0 0 auto
+          - width: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'auto'
+                  : 'var(--tab-inactive-width)';
+              ]]]
+          - min-width: var(--tab-inactive-width)
+          - height: var(--tab-height)
+          - padding: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '10px 16px'
+                  : '10px';
+              ]]]
+          - border-radius: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'var(--tab-radius-active)'
+                  : 'var(--tab-radius-inactive)';
+              ]]]
+          - background: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+
+                if (!active) return 'var(--ha-card-background)';
+                if (hass.themes.darkMode) return '#69739a';
+
+                return `
+                  linear-gradient(rgba(148,165,255,0.22), rgba(148,165,255,0.22)),
+                  linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92))
+                `;
+              ]]]
+          - border: none
+          - box-shadow: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                if (!active) return 'none';
+
+                return hass.themes.darkMode
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.14)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90,104,160,0.06)';
+              ]]]
+          - transition: all 160ms ease
+
+        grid:
+          - grid-template-areas: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '"i n"'
+                  : '"i"';
+              ]]]
+          - grid-template-columns: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '22px auto'
+                  : '1fr';
+              ]]]
+          - column-gap: 10px
+          - align-items: center
+
+        icon:
+          - width: 22px
+          - color: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                return active
+                  ? (hass.themes.darkMode ? '#cbd6ff' : '#6676b8')
+                  : (hass.themes.darkMode ? '#5a5d63' : 'rgba(20,24,34,0.56)');
+              ]]]
+
+        name:
+          - display: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'block'
+                  : 'none';
+              ]]]
+          - font-size: 14px
+          - font-weight: 600
+          - color: |
+              [[[
+                return hass.themes.darkMode ? '#d7e0ff' : '#6676b8';
+              ]]]
+
+    - type: custom:button-card
+      triggers_update:
+        - input_select.active_tab
+      variables:
+        tab_key: lights
+        icon_active: m3rf:light-group
+        icon_inactive: m3o:light-group
+      name: Lights
+      icon: |
+        [[[
+          return states['input_select.active_tab']?.state === variables.tab_key
+            ? variables.icon_active
+            : variables.icon_inactive;
+        ]]]
+      tap_action:
+        action: call-service
+        service: input_select.select_option
+        data:
+          entity_id: input_select.active_tab
+          option: lights
+      styles:
+        card:
+          - flex: 0 0 auto
+          - width: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'auto'
+                  : 'var(--tab-inactive-width)';
+              ]]]
+          - min-width: var(--tab-inactive-width)
+          - height: var(--tab-height)
+          - padding: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '10px 16px'
+                  : '10px';
+              ]]]
+          - border-radius: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'var(--tab-radius-active)'
+                  : 'var(--tab-radius-inactive)';
+              ]]]
+          - background: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+
+                if (!active) return 'var(--ha-card-background)';
+                if (hass.themes.darkMode) return '#69739a';
+
+                return `
+                  linear-gradient(rgba(148,165,255,0.22), rgba(148,165,255,0.22)),
+                  linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92))
+                `;
+              ]]]
+          - border: none
+          - box-shadow: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                if (!active) return 'none';
+
+                return hass.themes.darkMode
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.14)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90,104,160,0.06)';
+              ]]]
+          - transition: all 160ms ease
+
+        grid:
+          - grid-template-areas: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '"i n"'
+                  : '"i"';
+              ]]]
+          - grid-template-columns: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '22px auto'
+                  : '1fr';
+              ]]]
+          - column-gap: 10px
+          - align-items: center
+
+        icon:
+          - width: 22px
+          - color: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                return active
+                  ? (hass.themes.darkMode ? '#cbd6ff' : '#6676b8')
+                  : (hass.themes.darkMode ? '#5a5d63' : 'rgba(20,24,34,0.56)');
+              ]]]
+
+        name:
+          - display: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'block'
+                  : 'none';
+              ]]]
+          - font-size: 14px
+          - font-weight: 600
+          - color: |
+              [[[
+                return hass.themes.darkMode ? '#d7e0ff' : '#6676b8';
+              ]]]
+
+    - type: custom:button-card
+      triggers_update:
+        - input_select.active_tab
+      variables:
+        tab_key: climate
+        icon_active: cil:thermometer-full
+        icon_inactive: cil:thermometer-empty
+      name: Climate
+      icon: |
+        [[[
+          return states['input_select.active_tab']?.state === variables.tab_key
+            ? variables.icon_active
+            : variables.icon_inactive;
+        ]]]
+      tap_action:
+        action: call-service
+        service: input_select.select_option
+        data:
+          entity_id: input_select.active_tab
+          option: climate
+      styles:
+        card:
+          - flex: 0 0 auto
+          - width: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'auto'
+                  : 'var(--tab-inactive-width)';
+              ]]]
+          - min-width: var(--tab-inactive-width)
+          - height: var(--tab-height)
+          - padding: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '10px 16px'
+                  : '10px';
+              ]]]
+          - border-radius: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'var(--tab-radius-active)'
+                  : 'var(--tab-radius-inactive)';
+              ]]]
+          - background: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+
+                if (!active) return 'var(--ha-card-background)';
+                if (hass.themes.darkMode) return '#69739a';
+
+                return `
+                  linear-gradient(rgba(148,165,255,0.22), rgba(148,165,255,0.22)),
+                  linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92))
+                `;
+              ]]]
+          - border: none
+          - box-shadow: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                if (!active) return 'none';
+
+                return hass.themes.darkMode
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.14)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90,104,160,0.06)';
+              ]]]
+          - transition: all 160ms ease
+
+        grid:
+          - grid-template-areas: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '"i n"'
+                  : '"i"';
+              ]]]
+          - grid-template-columns: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '22px auto'
+                  : '1fr';
+              ]]]
+          - column-gap: 10px
+          - align-items: center
+
+        icon:
+          - width: 22px
+          - color: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                return active
+                  ? (hass.themes.darkMode ? '#cbd6ff' : '#6676b8')
+                  : (hass.themes.darkMode ? '#5a5d63' : 'rgba(20,24,34,0.56)');
+              ]]]
+
+        name:
+          - display: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'block'
+                  : 'none';
+              ]]]
+          - font-size: 14px
+          - font-weight: 600
+          - color: |
+              [[[
+                return hass.themes.darkMode ? '#d7e0ff' : '#6676b8';
+              ]]]
+
+    - type: custom:button-card
+      triggers_update:
+        - input_select.active_tab
+      variables:
+        tab_key: safety
+        icon_active: m3rf:detector-smoke
+        icon_inactive: m3r:detector-smoke
+      name: Safety & More
+      icon: |
+        [[[
+          return states['input_select.active_tab']?.state === variables.tab_key
+            ? variables.icon_active
+            : variables.icon_inactive;
+        ]]]
+      tap_action:
+        action: call-service
+        service: input_select.select_option
+        data:
+          entity_id: input_select.active_tab
+          option: safety
+      styles:
+        card:
+          - flex: 0 0 auto
+          - width: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'auto'
+                  : 'var(--tab-inactive-width)';
+              ]]]
+          - min-width: var(--tab-inactive-width)
+          - height: var(--tab-height)
+          - padding: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '10px 16px'
+                  : '10px';
+              ]]]
+          - border-radius: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'var(--tab-radius-active)'
+                  : 'var(--tab-radius-inactive)';
+              ]]]
+          - background: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+
+                if (!active) return 'var(--ha-card-background)';
+                if (hass.themes.darkMode) return '#69739a';
+
+                return `
+                  linear-gradient(rgba(148,165,255,0.22), rgba(148,165,255,0.22)),
+                  linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92))
+                `;
+              ]]]
+          - border: none
+          - box-shadow: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                if (!active) return 'none';
+
+                return hass.themes.darkMode
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.14)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90,104,160,0.06)';
+              ]]]
+          - transition: all 160ms ease
+
+        grid:
+          - grid-template-areas: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '"i n"'
+                  : '"i"';
+              ]]]
+          - grid-template-columns: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? '22px auto'
+                  : '1fr';
+              ]]]
+          - column-gap: 10px
+          - align-items: center
+
+        icon:
+          - width: 22px
+          - color: |
+              [[[
+                const active = states['input_select.active_tab']?.state === variables.tab_key;
+                return active
+                  ? (hass.themes.darkMode ? '#cbd6ff' : '#6676b8')
+                  : (hass.themes.darkMode ? '#5a5d63' : 'rgba(20,24,34,0.56)');
+              ]]]
+
+        name:
+          - display: |
+              [[[
+                return states['input_select.active_tab']?.state === variables.tab_key
+                  ? 'block'
+                  : 'none';
+              ]]]
+          - font-size: 14px
+          - font-weight: 600
+          - color: |
+              [[[
+                return hass.themes.darkMode ? '#d7e0ff' : '#6676b8';
+              ]]]
