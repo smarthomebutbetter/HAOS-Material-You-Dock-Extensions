@@ -1,0 +1,933 @@
+type: custom:button-card
+name: ""
+styles:
+  card:
+    - position: fixed
+    - left: 50vw
+    - bottom: var(--dock-bottom)
+    - transform: translate3d(-50%, 0, 0)
+    - z-index: var(--dock-z)
+    - "--dock-w-mobile": 350px
+    - "--dock-w-tablet": 420px
+    - "--dock-w-desktop": 480px
+    - "--dock-tab-pad-x-mobile": 8px
+    - "--dock-tab-pad-x-tablet": 10px
+    - "--dock-tab-pad-x-desktop": 8px
+    - "--label-size-brief": 12px
+    - "--label-size-geraete": 12px
+    - "--label-size-home": 12px
+    - "--label-size-apps": 12px
+    - "--label-size-profil": 12px
+    - width: |
+        [[[
+          const w = window.innerWidth || 0;
+          const coarse = window.matchMedia('(pointer: coarse)').matches;
+          if (w < 768) return 'var(--dock-w-mobile)';
+          if (coarse && w < 1280) return 'var(--dock-w-tablet)';
+          if (w < 1024) return 'var(--dock-w-tablet)';
+          return 'var(--dock-w-desktop)';
+        ]]]
+    - "--tab-pad-x": |
+        [[[
+          const w = window.innerWidth || 0;
+          const coarse = window.matchMedia('(pointer: coarse)').matches;
+          if (w < 768) return 'var(--dock-tab-pad-x-mobile)';
+          if (coarse && w < 1280) return 'var(--dock-tab-pad-x-tablet)';
+          if (w < 1024) return 'var(--dock-tab-pad-x-tablet)';
+          return 'var(--dock-tab-pad-x-desktop)';
+        ]]]
+    - height: 65px
+    - border-radius: 999px
+    - "--dock-z": 0
+    - "--dock-bottom": 18px
+    - padding: var(--dock-pad-y) var(--dock-pad-x)
+    - "--dock-pad-x": 8px
+    - "--dock-pad-y": 10px
+    - background: var(--ha-card-background)
+    - border: none
+    - box-shadow: none
+    - overflow: hidden
+    - "--dock-icon-y": "-5px"
+    - "--dock-label-y": 16px
+    - "--dock-label-size": 12px
+    - "--dock-label-weight": "600"
+    - "--icon-label-gap": 2px
+    - "--pill-width": 53px
+    - "--pill-height": 57px
+    - "--pill-y": 2.6px
+    - "--pill-padding-y": 0px
+    - "--pill-radius": 35px
+    - "--pill-edge-x": 0px
+    - "--pill-edge-y": 0px
+    - "--pill-extra-x": 0px
+    - "--dock-gap": 0px
+    - "--tab-content-x": 0px
+    - "--avatar-size": 45px
+    - "--avatar-x": 0px
+    - "--avatar-y": 3px
+    - "--anim-slow": 2.8s
+    - "--anim-med": 2.2s
+    - "--anim-fast": 1.6s
+    - "--glow-blue": rgba(175,188,246,0.35)
+    - "--glow-white": rgba(255,255,255,0.22)
+    - "--glow-pink": rgba(255,105,180,0.35)
+    - "--dock-pill-dark": "#5b627c"
+    - "--dock-pill-light": rgba(0,0,0,0.08)
+    - "--dock-pill-border-dark": rgba(255,255,255,0.08)
+    - "--dock-pill-border-light": rgba(0,0,0,0.08)
+    - "--dock-pill-shadow-dark": >-
+        0 6px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.05), inset
+        0 -1px 0 rgba(0,0,0,0.10)
+    - "--dock-pill-shadow-light": >-
+        0 4px 10px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.30), inset
+        0 -1px 0 rgba(0,0,0,0.04)
+    - "--dock-pill-active-dark": "#69739a"
+    - "--dock-pill-active-light": rgba(148, 165, 255, 0.26)
+    - "--dock-pill-active-border-dark": rgba(255,255,255,0.10)
+    - "--dock-pill-active-border-light": rgba(116, 134, 210, 0.30)
+    - "--dock-pill-active-shadow-dark": >-
+        0 10px 24px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 -1px 0 rgba(0,0,0,0.14)
+    - "--dock-pill-active-shadow-light": >-
+        0 8px 20px rgba(109, 126, 188, 0.16), inset 0 1px 0
+        rgba(255,255,255,0.42), inset 0 -1px 0 rgba(90, 104, 160, 0.06)
+    - "--dock-icon-active-dark": "#afbcf6"
+    - "--dock-icon-active-light": "#6676b8"
+    - "--dock-icon-inactive-dark": "#484a4e"
+    - "--dock-icon-inactive-light": rgba(20,24,34,0.56)
+    - "--dock-label-active-dark": var(--dock-icon-active-dark)
+    - "--dock-label-active-light": "#6676b8"
+    - "--dock-label-inactive-dark": var(--dock-icon-inactive-dark)
+    - "--dock-label-inactive-light": rgba(20,24,34,0.62)
+    - "--theme-is-light": |
+        [[[
+          const root = document.documentElement;
+          const cs = getComputedStyle(root);
+
+          const candidates = [
+            cs.getPropertyValue('--ha-card-background').trim(),
+            cs.getPropertyValue('--card-background-color').trim(),
+            cs.getPropertyValue('--lovelace-background').trim(),
+            cs.getPropertyValue('--primary-background-color').trim(),
+            cs.getPropertyValue('--secondary-background-color').trim(),
+            cs.getPropertyValue('--md-sys-color-surface').trim(),
+            cs.getPropertyValue('--md-sys-color-surface-container').trim(),
+            cs.getPropertyValue('--md-sys-color-surface-container-highest').trim(),
+            cs.getPropertyValue('--m3-surface').trim(),
+            cs.getPropertyValue('--m3-background').trim(),
+            getComputedStyle(document.body).backgroundColor
+          ].filter(Boolean);
+
+          const toRGB = (v) => {
+            if (!v) return null;
+            let m = v.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+            if (m) return [+m[1], +m[2], +m[3]];
+            m = v.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+            if (m) {
+              let hex = m[1].toLowerCase();
+              if (hex.length === 3) hex = hex.split('').map(ch => ch + ch).join('');
+              return [
+                parseInt(hex.slice(0,2), 16),
+                parseInt(hex.slice(2,4), 16),
+                parseInt(hex.slice(4,6), 16)
+              ];
+            }
+            return null;
+          };
+
+          let rgb = null;
+          for (const c of candidates) {
+            rgb = toRGB(c);
+            if (rgb) break;
+          }
+          if (!rgb) return '0';
+
+          const [r,g,b] = rgb;
+          const luminance = (0.2126*r + 0.7152*g + 0.0722*b) / 255;
+          return luminance > 0.60 ? '1' : '0';
+        ]]]
+    - "--pill-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-pill-dark)'
+            : 'var(--dock-pill-light)';
+        ]]]
+    - "--pill-border-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-pill-border-dark)'
+            : 'var(--dock-pill-border-light)';
+        ]]]
+    - "--pill-shadow": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-pill-shadow-dark)'
+            : 'var(--dock-pill-shadow-light)';
+        ]]]
+    - "--pill-active-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-pill-active-dark)'
+            : 'var(--dock-pill-active-light)';
+        ]]]
+    - "--pill-active-border-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-pill-active-border-dark)'
+            : 'var(--dock-pill-active-border-light)';
+        ]]]
+    - "--pill-active-shadow": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-pill-active-shadow-dark)'
+            : 'var(--dock-pill-active-shadow-light)';
+        ]]]
+    - "--icon-active-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-icon-active-dark)'
+            : 'var(--dock-icon-active-light)';
+        ]]]
+    - "--icon-inactive-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-icon-inactive-dark)'
+            : 'var(--dock-icon-inactive-light)';
+        ]]]
+    - "--label-active-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-label-active-dark)'
+            : 'var(--dock-label-active-light)';
+        ]]]
+    - "--label-inactive-color": |
+        [[[
+          return hass.themes.darkMode
+            ? 'var(--dock-label-inactive-dark)'
+            : 'var(--dock-label-inactive-light)';
+        ]]]
+  grid:
+    - grid-template-areas: "\"ai devices home apps profile\""
+    - grid-template-columns: 1fr 1fr 1fr 1fr auto
+    - align-items: center
+    - column-gap: var(--dock-gap)
+
+custom_fields:
+  ai:
+    card:
+      type: custom:button-card
+      icon: |
+        [[[
+          return window.location.pathname.includes('/ai-dashboard')
+            ? 'mdi:creation'
+            : 'mdi:creation-outline';
+        ]]]
+      name: Brief
+      show_name: true
+      tap_action:
+        action: navigate
+        navigation_path: /your-dashboard/ai-dashboard
+        haptic: light
+      extra_styles: |
+        @keyframes geminiShimmer {
+          0%   { background-position: 0% 50%; opacity: 0.45; }
+          50%  { background-position: 100% 50%; opacity: 0.80; }
+          100% { background-position: 0% 50%; opacity: 0.45; }
+        }
+        @keyframes iosPop {
+          0%   { transform: translateY(var(--dock-icon-y)) scale(1); }
+          50%  { transform: translateY(var(--dock-icon-y)) scale(1.12); }
+          100% { transform: translateY(var(--dock-icon-y)) scale(1.04); }
+        }
+        @keyframes iosGlowBreathPink {
+          0%   { filter: drop-shadow(0 0 0 var(--glow-pink)); opacity: 0.92; }
+          50%  { filter: drop-shadow(0 0 10px var(--glow-pink)); opacity: 1; }
+          100% { filter: drop-shadow(0 0 0 var(--glow-pink)); opacity: 0.92; }
+        }
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - width: calc(46px + (var(--tab-pad-x) * 2))
+          - height: 46px
+          - border-radius: 50%
+          - margin-top: "-5px"
+          - position: relative
+          - overflow: visible
+          - transform: translateX(var(--tab-content-x))
+        icon:
+          - width: 24px
+          - height: 24px
+          - z-index: 2
+          - transform: translateY(var(--dock-icon-y))
+          - color: |
+              [[[
+                return window.location.pathname.includes('/ai-dashboard')
+                  ? 'var(--icon-active-color)'
+                  : 'var(--icon-inactive-color)';
+              ]]]
+          - animation: |
+              [[[
+                return window.location.pathname.includes('/ai-dashboard')
+                  ? `iosPop 220ms ease-out 1, iosGlowBreathPink var(--anim-slow) ease-in-out infinite`
+                  : 'none';
+              ]]]
+        name:
+          - position: absolute
+          - left: 50%
+          - top: 50%
+          - transform: translate(-50%, calc(-50% + var(--dock-label-y)))
+          - margin-top: var(--icon-label-gap)
+          - font-size: var(--label-size-brief)
+          - font-weight: var(--dock-label-weight)
+          - line-height: 1
+          - white-space: nowrap
+          - color: |
+              [[[
+                return window.location.pathname.includes('/ai-dashboard')
+                  ? 'var(--label-active-color)'
+                  : 'var(--label-inactive-color)';
+              ]]]
+        custom_fields:
+          shimmer:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - width: 40px
+            - height: 40px
+            - transform: translate(-50%, -50%)
+            - border-radius: 50%
+            - z-index: 1
+            - pointer-events: none
+            - filter: blur(14px)
+            - mix-blend-mode: screen
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/ai-dashboard')
+                    ? 'linear-gradient(90deg, rgba(110,170,255,0.00), rgba(110,170,255,0.75), rgba(180,120,255,0.70), rgba(255,120,200,0.65), rgba(110,170,255,0.00))'
+                    : 'transparent';
+                ]]]
+            - background-size: 220% 220%
+            - animation: |
+                [[[
+                  return window.location.pathname.includes('/ai-dashboard')
+                    ? 'geminiShimmer 4.8s ease-in-out infinite'
+                    : 'none';
+                ]]]
+          pill:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - transform: translate(-50%, calc(-50% + var(--pill-y)))
+            - width: >-
+                calc(var(--pill-width) + (var(--tab-pad-x) * 2) -
+                (var(--pill-edge-x) * 2) + (var(--pill-extra-x) * 2))
+            - height: >-
+                calc(var(--pill-height) - (var(--pill-padding-y) * 2) -
+                (var(--pill-edge-y) * 2))
+            - border-radius: var(--pill-radius)
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/ai-dashboard')
+                    ? 'var(--pill-active-color)'
+                    : 'transparent';
+                ]]]
+            - border: |
+                [[[
+                  return window.location.pathname.includes('/ai-dashboard')
+                    ? '1px solid var(--pill-active-border-color)'
+                    : '0px solid transparent';
+                ]]]
+            - box-shadow: |
+                [[[
+                  return window.location.pathname.includes('/ai-dashboard')
+                    ? 'var(--pill-active-shadow)'
+                    : 'none';
+                ]]]
+            - transition: background 140ms ease, border 140ms ease, box-shadow 140ms ease
+            - z-index: -1
+            - pointer-events: none
+      custom_fields:
+        shimmer: ""
+        pill: ""
+
+  devices:
+    card:
+      type: custom:button-card
+      icon: |
+        [[[
+          return window.location.pathname.includes('/devices-dashboard')
+            ? 'm3of:home-iot-device'
+            : 'm3o:home-iot-device';
+        ]]]
+      name: Geräte
+      show_name: true
+      tap_action:
+        action: navigate
+        navigation_path: /your-dashboard/devices-dashboard
+        haptic: light
+      extra_styles: |
+        @keyframes geminiShimmer {
+          0%   { background-position: 0% 50%; opacity: 0.45; }
+          50%  { background-position: 100% 50%; opacity: 0.80; }
+          100% { background-position: 0% 50%; opacity: 0.45; }
+        }
+        @keyframes iosPop {
+          0%   { transform: translateY(var(--dock-icon-y)) scale(1); }
+          50%  { transform: translateY(var(--dock-icon-y)) scale(1.10); }
+          100% { transform: translateY(var(--dock-icon-y)) scale(1.03); }
+        }
+        @keyframes iosGlowBreathWhite {
+          0%   { filter: drop-shadow(0 0 0 var(--glow-white)); opacity: 0.90; }
+          50%  { filter: drop-shadow(0 0 8px var(--glow-white)); opacity: 1; }
+          100% { filter: drop-shadow(0 0 0 var(--glow-white)); opacity: 0.90; }
+        }
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - width: calc(46px + (var(--tab-pad-x) * 2))
+          - height: 46px
+          - border-radius: 50%
+          - margin-top: "-5px"
+          - position: relative
+          - overflow: visible
+          - transform: translateX(var(--tab-content-x))
+        icon:
+          - width: 24px
+          - height: 24px
+          - z-index: 2
+          - transform: translateY(var(--dock-icon-y))
+          - color: |
+              [[[
+                return window.location.pathname.includes('/devices-dashboard')
+                  ? 'var(--icon-active-color)'
+                  : 'var(--icon-inactive-color)';
+              ]]]
+          - animation: |
+              [[[
+                return window.location.pathname.includes('/devices-dashboard')
+                  ? `iosPop 220ms ease-out 1, iosGlowBreathWhite var(--anim-med) ease-in-out infinite`
+                  : 'none';
+              ]]]
+        name:
+          - position: absolute
+          - left: 50%
+          - top: 50%
+          - transform: translate(-50%, calc(-50% + var(--dock-label-y)))
+          - margin-top: var(--icon-label-gap)
+          - font-size: var(--label-size-geraete)
+          - font-weight: var(--dock-label-weight)
+          - line-height: 1
+          - white-space: nowrap
+          - color: |
+              [[[
+                return window.location.pathname.includes('/devices-dashboard')
+                  ? 'var(--label-active-color)'
+                  : 'var(--label-inactive-color)';
+              ]]]
+        custom_fields:
+          shimmer:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - width: 40px
+            - height: 40px
+            - transform: translate(-50%, -50%)
+            - border-radius: 50%
+            - z-index: 1
+            - pointer-events: none
+            - filter: blur(14px)
+            - mix-blend-mode: screen
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/devices-dashboard')
+                    ? 'linear-gradient(90deg, rgba(255,255,255,0.00), rgba(255,255,255,0.55), rgba(255,255,255,0.25), rgba(255,255,255,0.00))'
+                    : 'transparent';
+                ]]]
+            - background-size: 220% 220%
+            - animation: |
+                [[[
+                  return window.location.pathname.includes('/devices-dashboard')
+                    ? 'geminiShimmer 4.8s ease-in-out infinite'
+                    : 'none';
+                ]]]
+          pill:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - transform: translate(-50%, calc(-50% + var(--pill-y)))
+            - width: >-
+                calc(var(--pill-width) + (var(--tab-pad-x) * 2) -
+                (var(--pill-edge-x) * 2) + (var(--pill-extra-x) * 2))
+            - height: >-
+                calc(var(--pill-height) - (var(--pill-padding-y) * 2) -
+                (var(--pill-edge-y) * 2))
+            - border-radius: var(--pill-radius)
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/devices-dashboard')
+                    ? 'var(--pill-active-color)'
+                    : 'transparent';
+                ]]]
+            - border: |
+                [[[
+                  return window.location.pathname.includes('/devices-dashboard')
+                    ? '1px solid var(--pill-active-border-color)'
+                    : '0px solid transparent';
+                ]]]
+            - box-shadow: |
+                [[[
+                  return window.location.pathname.includes('/devices-dashboard')
+                    ? 'var(--pill-active-shadow)'
+                    : 'none';
+                ]]]
+            - transition: background 140ms ease, border 140ms ease, box-shadow 140ms ease
+            - z-index: -1
+            - pointer-events: none
+      custom_fields:
+        shimmer: ""
+        pill: ""
+
+  home:
+    card:
+      type: custom:button-card
+      icon: mdi:home-assistant
+      name: Home
+      show_name: true
+      tap_action:
+        action: navigate
+        navigation_path: /your-dashboard/home
+        haptic: light
+      extra_styles: |
+        @keyframes geminiShimmer {
+          0%   { background-position: 0% 50%; opacity: 0.45; }
+          50%  { background-position: 100% 50%; opacity: 0.80; }
+          100% { background-position: 0% 50%; opacity: 0.45; }
+        }
+        @keyframes iosPopHome {
+          0%   { transform: translateY(var(--dock-icon-y)) scale(1); }
+          50%  { transform: translateY(var(--dock-icon-y)) scale(1.08); }
+          100% { transform: translateY(var(--dock-icon-y)) scale(1.02); }
+        }
+        @keyframes iosGlowBreathBlue {
+          0%   { filter: drop-shadow(0 0 0 var(--glow-blue)); opacity: 0.92; }
+          50%  { filter: drop-shadow(0 0 12px var(--glow-blue)); opacity: 1; }
+          100% { filter: drop-shadow(0 0 0 var(--glow-blue)); opacity: 0.92; }
+        }
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - width: calc(50px + (var(--tab-pad-x) * 2))
+          - height: 50px
+          - border-radius: 50%
+          - margin-top: "-6px"
+          - position: relative
+          - overflow: visible
+          - transform: translateX(var(--tab-content-x))
+        icon:
+          - width: 30px
+          - height: 30px
+          - z-index: 2
+          - transform: translateY(var(--dock-icon-y))
+          - color: |
+              [[[
+                return window.location.pathname.includes('/home')
+                  ? 'var(--icon-active-color)'
+                  : 'var(--icon-inactive-color)';
+              ]]]
+          - animation: |
+              [[[
+                return window.location.pathname.includes('/home')
+                  ? `iosPopHome 240ms ease-out 1, iosGlowBreathBlue var(--anim-slow) ease-in-out infinite`
+                  : 'none';
+              ]]]
+        name:
+          - position: absolute
+          - left: 50%
+          - top: 50%
+          - transform: translate(-50%, calc(-50% + var(--dock-label-y)))
+          - margin-top: var(--icon-label-gap)
+          - font-size: var(--label-size-home)
+          - font-weight: var(--dock-label-weight)
+          - line-height: 1
+          - white-space: nowrap
+          - color: |
+              [[[
+                return window.location.pathname.includes('/home')
+                  ? 'var(--label-active-color)'
+                  : 'var(--label-inactive-color)';
+              ]]]
+        custom_fields:
+          shimmer:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - width: 40px
+            - height: 40px
+            - transform: translate(-50%, -50%)
+            - border-radius: 50%
+            - z-index: 1
+            - pointer-events: none
+            - filter: blur(14px)
+            - mix-blend-mode: screen
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/home')
+                    ? 'linear-gradient(90deg, rgba(110,170,255,0.00), rgba(110,170,255,0.65), rgba(255,255,255,0.40), rgba(110,170,255,0.00))'
+                    : 'transparent';
+                ]]]
+            - background-size: 220% 220%
+            - animation: |
+                [[[
+                  return window.location.pathname.includes('/home')
+                    ? 'geminiShimmer 4.8s ease-in-out infinite'
+                    : 'none';
+                ]]]
+          pill:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - transform: translate(-50%, calc(-50% + var(--pill-y)))
+            - width: >-
+                calc(calc(var(--pill-width) + 4px) + (var(--tab-pad-x) * 2) -
+                (var(--pill-edge-x) * 2) + (var(--pill-extra-x) * 2))
+            - height: >-
+                calc(var(--pill-height) - (var(--pill-padding-y) * 2) -
+                (var(--pill-edge-y) * 2))
+            - border-radius: var(--pill-radius)
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/home')
+                    ? 'var(--pill-active-color)'
+                    : 'transparent';
+                ]]]
+            - border: |
+                [[[
+                  return window.location.pathname.includes('/home')
+                    ? '1px solid var(--pill-active-border-color)'
+                    : '0px solid transparent';
+                ]]]
+            - box-shadow: |
+                [[[
+                  return window.location.pathname.includes('/home')
+                    ? 'var(--pill-active-shadow)'
+                    : 'none';
+                ]]]
+            - transition: background 140ms ease, border 140ms ease, box-shadow 140ms ease
+            - z-index: -1
+            - pointer-events: none
+      custom_fields:
+        shimmer: ""
+        pill: ""
+
+  apps:
+    card:
+      type: custom:button-card
+      icon: |
+        [[[
+          return window.location.pathname.includes('/apps-dashboard')
+            ? 'm3rf:grid-view'
+            : 'm3r:grid-view';
+        ]]]
+      name: Apps
+      show_name: true
+      tap_action:
+        action: navigate
+        navigation_path: /your-dashboard/apps-dashboard
+        haptic: light
+      extra_styles: |
+        @keyframes geminiShimmer {
+          0%   { background-position: 0% 50%; opacity: 0.45; }
+          50%  { background-position: 100% 50%; opacity: 0.80; }
+          100% { background-position: 0% 50%; opacity: 0.45; }
+        }
+        @keyframes iosPop {
+          0%   { transform: translateY(var(--dock-icon-y)) scale(1); }
+          50%  { transform: translateY(var(--dock-icon-y)) scale(1.09); }
+          100% { transform: translateY(var(--dock-icon-y)) scale(1.03); }
+        }
+        @keyframes iosGlowBreathBlue {
+          0%   { filter: drop-shadow(0 0 0 var(--glow-blue)); opacity: 0.92; }
+          50%  { filter: drop-shadow(0 0 10px var(--glow-blue)); opacity: 1; }
+          100% { filter: drop-shadow(0 0 0 var(--glow-blue)); opacity: 0.92; }
+        }
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - width: calc(46px + (var(--tab-pad-x) * 2))
+          - height: 46px
+          - border-radius: 50%
+          - margin-top: "-5px"
+          - position: relative
+          - overflow: visible
+          - transform: translateX(var(--tab-content-x))
+        icon:
+          - width: 24px
+          - height: 24px
+          - z-index: 2
+          - transform: translateY(var(--dock-icon-y))
+          - color: |
+              [[[
+                return window.location.pathname.includes('/apps-dashboard')
+                  ? 'var(--icon-active-color)'
+                  : 'var(--icon-inactive-color)';
+              ]]]
+          - animation: |
+              [[[
+                return window.location.pathname.includes('/apps-dashboard')
+                  ? `iosPop 220ms ease-out 1, iosGlowBreathBlue var(--anim-fast) ease-in-out infinite`
+                  : 'none';
+              ]]]
+        name:
+          - position: absolute
+          - left: 50%
+          - top: 50%
+          - transform: translate(-50%, calc(-50% + var(--dock-label-y)))
+          - margin-top: var(--icon-label-gap)
+          - font-size: var(--label-size-apps)
+          - font-weight: var(--dock-label-weight)
+          - line-height: 1
+          - white-space: nowrap
+          - color: |
+              [[[
+                return window.location.pathname.includes('/apps-dashboard')
+                  ? 'var(--label-active-color)'
+                  : 'var(--label-inactive-color)';
+              ]]]
+        custom_fields:
+          shimmer:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - width: 40px
+            - height: 40px
+            - transform: translate(-50%, -50%)
+            - border-radius: 50%
+            - z-index: 1
+            - pointer-events: none
+            - filter: blur(14px)
+            - mix-blend-mode: screen
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/apps-dashboard')
+                    ? 'linear-gradient(90deg, rgba(110,170,255,0.00), rgba(110,170,255,0.65), rgba(255,255,255,0.35), rgba(110,170,255,0.00))'
+                    : 'transparent';
+                ]]]
+            - background-size: 220% 220%
+            - animation: |
+                [[[
+                  return window.location.pathname.includes('/apps-dashboard')
+                    ? 'geminiShimmer 4.8s ease-in-out infinite'
+                    : 'none';
+                ]]]
+          pill:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - transform: translate(-50%, calc(-50% + var(--pill-y)))
+            - width: >-
+                calc(var(--pill-width) + (var(--tab-pad-x) * 2) -
+                (var(--pill-edge-x) * 2) + (var(--pill-extra-x) * 2))
+            - height: >-
+                calc(var(--pill-height) - (var(--pill-padding-y) * 2) -
+                (var(--pill-edge-y) * 2))
+            - border-radius: var(--pill-radius)
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/apps-dashboard')
+                    ? 'var(--pill-active-color)'
+                    : 'transparent';
+                ]]]
+            - border: |
+                [[[
+                  return window.location.pathname.includes('/apps-dashboard')
+                    ? '1px solid var(--pill-active-border-color)'
+                    : '0px solid transparent';
+                ]]]
+            - box-shadow: |
+                [[[
+                  return window.location.pathname.includes('/apps-dashboard')
+                    ? 'var(--pill-active-shadow)'
+                    : 'none';
+                ]]]
+            - transition: background 140ms ease, border 140ms ease, box-shadow 140ms ease
+            - z-index: -1
+            - pointer-events: none
+      custom_fields:
+        shimmer: ""
+        pill: ""
+
+  profile:
+    card:
+      type: custom:button-card
+      show_name: true
+      show_icon: true
+      tap_action:
+        action: navigate
+        navigation_path: /your-dashboard/profile
+        haptic: light
+      icon: mdi:account
+      name: Profil
+      extra_styles: |
+        @keyframes geminiShimmer {
+          0%   { background-position: 0% 50%; opacity: 0.45; }
+          50%  { background-position: 100% 50%; opacity: 0.80; }
+          100% { background-position: 0% 50%; opacity: 0.45; }
+        }
+        @keyframes iosPop {
+          0%   { transform: translateY(var(--dock-icon-y)) scale(1); }
+          50%  { transform: translateY(var(--dock-icon-y)) scale(1.10); }
+          100% { transform: translateY(var(--dock-icon-y)) scale(1.03); }
+        }
+        @keyframes iosGlowBreathWhite {
+          0%   { filter: drop-shadow(0 0 0 var(--glow-white)); opacity: 0.90; }
+          50%  { filter: drop-shadow(0 0 10px var(--glow-white)); opacity: 1; }
+          100% { filter: drop-shadow(0 0 0 var(--glow-white)); opacity: 0.90; }
+        }
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - width: calc(46px + (var(--tab-pad-x) * 2))
+          - height: 46px
+          - border-radius: 50%
+          - margin-top: "-5px"
+          - position: relative
+          - overflow: visible
+          - transform: translateX(var(--tab-content-x))
+        icon:
+          - width: 24px
+          - height: 24px
+          - z-index: 3
+          - transform: translateY(var(--dock-icon-y))
+          - color: var(--icon-active-color)
+          - opacity: |
+              [[[
+                return window.location.pathname.includes('/profile') ? 1 : 0;
+              ]]]
+          - transition: opacity 140ms ease
+          - animation: |
+              [[[
+                return window.location.pathname.includes('/profile')
+                  ? `iosPop 220ms ease-out 1, iosGlowBreathWhite var(--anim-med) ease-in-out infinite`
+                  : 'none';
+              ]]]
+        name:
+          - position: absolute
+          - left: 50%
+          - top: 50%
+          - transform: translate(-50%, calc(-50% + var(--dock-label-y)))
+          - margin-top: var(--icon-label-gap)
+          - font-size: var(--label-size-profil)
+          - font-weight: var(--dock-label-weight)
+          - line-height: 1
+          - white-space: nowrap
+          - color: var(--label-active-color)
+          - opacity: |
+              [[[
+                return window.location.pathname.includes('/profile') ? 1 : 0;
+              ]]]
+          - transition: opacity 140ms ease
+        custom_fields:
+          shimmer:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - width: 40px
+            - height: 40px
+            - transform: translate(-50%, -50%)
+            - border-radius: 50%
+            - z-index: 1
+            - pointer-events: none
+            - filter: blur(14px)
+            - mix-blend-mode: screen
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/profile')
+                    ? 'linear-gradient(90deg, rgba(255,255,255,0.00), rgba(255,255,255,0.55), rgba(255,255,255,0.25), rgba(255,255,255,0.00))'
+                    : 'transparent';
+                ]]]
+            - background-size: 220% 220%
+            - animation: |
+                [[[
+                  return window.location.pathname.includes('/profile')
+                    ? 'geminiShimmer 4.8s ease-in-out infinite'
+                    : 'none';
+                ]]]
+          pill:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - transform: translate(-50%, calc(-50% + var(--pill-y)))
+            - width: >-
+                calc(var(--pill-width) + (var(--tab-pad-x) * 2) -
+                (var(--pill-edge-x) * 2) + (var(--pill-extra-x) * 2))
+            - height: >-
+                calc(var(--pill-height) - (var(--pill-padding-y) * 2) -
+                (var(--pill-edge-y) * 2))
+            - border-radius: var(--pill-radius)
+            - background: |
+                [[[
+                  return window.location.pathname.includes('/profile')
+                    ? 'var(--pill-active-color)'
+                    : 'transparent';
+                ]]]
+            - border: |
+                [[[
+                  return window.location.pathname.includes('/profile')
+                    ? '1px solid var(--pill-active-border-color)'
+                    : '0px solid transparent';
+                ]]]
+            - box-shadow: |
+                [[[
+                  return window.location.pathname.includes('/profile')
+                    ? 'var(--pill-active-shadow)'
+                    : 'none';
+                ]]]
+            - transition: background 140ms ease, border 140ms ease, box-shadow 140ms ease
+            - z-index: -1
+            - pointer-events: none
+          avatar:
+            - position: absolute
+            - left: 50%
+            - top: 50%
+            - transform: >-
+                translate(calc(-50% + var(--avatar-x)), calc(-50% +
+                var(--avatar-y))) translateZ(0)
+            - width: var(--avatar-size)
+            - height: var(--avatar-size)
+            - border-radius: 50%
+            - overflow: hidden
+            - background: rgba(255,255,255,0.08)
+            - box-shadow: 0 6px 16px rgba(0,0,0,0.35)
+            - z-index: 2
+            - opacity: |
+                [[[
+                  return window.location.pathname.includes('/profile') ? 0 : 1;
+                ]]]
+            - transition: opacity 140ms ease
+            - pointer-events: |
+                [[[
+                  return window.location.pathname.includes('/profile') ? 'none' : 'auto';
+                ]]]
+            - will-change: opacity, transform
+      custom_fields:
+        shimmer: ""
+        pill: ""
+        avatar: |
+          [[[
+            const profileEntity = "person.example_user";
+            const pic = hass.states[profileEntity]?.attributes?.entity_picture;
+            const url = pic
+              ? ((pic.startsWith('/') || pic.startsWith('http')) ? pic : `/${pic}`)
+              : null;
+
+            if (!url) {
+              return `<div style="width:100%;height:100%;border-radius:50%;background:rgba(255,255,255,0.08);"></div>`;
+            }
+
+            return `<div style="width:100%;height:100%;border-radius:50%;background-image:url('${url}');background-size:cover;background-position:center;"></div>`;
+          ]]]
