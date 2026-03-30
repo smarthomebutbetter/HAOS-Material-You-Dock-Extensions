@@ -1,0 +1,174 @@
+square: false
+type: grid
+columns: 3
+cards:
+  - type: custom:button-card
+    name: Kameras
+    icon: m3r:videocam
+    tap_action:
+      action: navigate
+      navigation_path: "#cameras"
+    styles:
+      grid:
+        - grid-template-rows: 1fr auto
+        - align-items: center
+        - justify-items: center
+      card:
+        - border-radius: 32px
+        - height: 120px
+        - padding: 23px
+        - box-shadow: none
+        - transition: background-color 0.3s ease, box-shadow 0.3s ease
+      name:
+        - font-weight: 500
+        - font-size: 15px
+        - margin-top: 8px
+        - max-width: 72px
+        - text-align: center
+        - white-space: normal
+        - overflow: hidden
+        - text-overflow: ellipsis
+        - color: |
+            [[[
+              return hass.themes.darkMode ? "#d8e2fb" : "#7c8fc7";
+            ]]]
+      icon:
+        - width: 48px
+        - height: 48px
+        - color: |
+            [[[
+              return hass.themes.darkMode ? "#d8e2fb" : "#7c8fc7";
+            ]]]
+    card_mod:
+      style: |
+        ha-card {
+          transition: background-color 0.3s ease;
+        }
+        ha-card:hover,
+        ha-card:active {
+          background-color:
+            [[[
+              return hass.themes.darkMode
+                ? "#2c2c33"
+                : "#eef2ff";
+            ]]] !important;
+        }
+        ha-icon {
+          transition: transform 0.2s ease;
+        }
+        ha-card:hover ha-icon,
+        ha-card:active ha-icon {
+          transform: scale(1.15);
+        }
+
+  - type: custom:button-card
+    name: Beleuchtung
+    icon: m3o:light-group
+    tap_action:
+      action: navigate
+      navigation_path: "#lighting"
+    styles:
+      grid:
+        - grid-template-rows: 1fr auto
+        - align-items: center
+        - justify-items: center
+      card:
+        - border-radius: 32px
+        - height: 120px
+        - padding: 23px
+        - box-shadow: none
+        - transition: background-color 0.3s ease, box-shadow 0.3s ease
+      name:
+        - font-weight: 500
+        - font-size: 14.5px
+        - margin-top: 8px
+        - max-width: 72px
+        - text-align: center
+        - white-space: normal
+        - overflow: hidden
+        - text-overflow: ellipsis
+        - color: |
+            [[[
+              return hass.themes.darkMode ? "#f2d380" : "#d4aa3f";
+            ]]]
+      icon:
+        - width: 47px
+        - height: 47px
+        - color: |
+            [[[
+              return hass.themes.darkMode ? "#f2d380" : "#d4aa3f";
+            ]]]
+    card_mod:
+      style: |
+        ha-card:hover,
+        ha-card:active {
+          background-color:
+            [[[
+              return hass.themes.darkMode
+                ? "#31302b"
+                : "#fff6e3";
+            ]]] !important;
+        }
+        ha-icon {
+          transition: transform 0.2s ease;
+        }
+        ha-card:hover ha-icon,
+        ha-card:active ha-icon {
+          transform: scale(1.15);
+        }
+
+  - type: custom:button-card
+    name: Klima
+    icon: m3rf:thermostat
+    tap_action:
+      action: navigate
+      navigation_path: "#climate"
+    styles:
+      grid:
+        - grid-template-rows: 1fr auto
+        - align-items: center
+        - justify-items: center
+      card:
+        - border-radius: 32px
+        - height: 120px
+        - padding: 23px
+        - box-shadow: none
+        - transition: background-color 0.3s ease, box-shadow 0.3s ease
+      name:
+        - font-weight: 500
+        - font-size: 15px
+        - margin-top: 8px
+        - max-width: 72px
+        - text-align: center
+        - white-space: normal
+        - overflow: hidden
+        - text-overflow: ellipsis
+        - color: |
+            [[[
+              return hass.themes.darkMode ? "#f2bfc2" : "#d98b92";
+            ]]]
+      icon:
+        - width: 47px
+        - height: 47px
+        - color: |
+            [[[
+              return hass.themes.darkMode ? "#f2bfc2" : "#d98b92";
+            ]]]
+    card_mod:
+      style: |
+        ha-card:hover,
+        ha-card:active {
+          background-color:
+            [[[
+              return hass.themes.darkMode
+                ? "#35302d"
+                : "#fdecee";
+            ]]] !important;
+        }
+        ha-icon {
+          transition: transform 0.2s ease;
+        }
+        ha-card:hover ha-icon,
+        ha-card:active ha-icon {
+          transform: scale(1.15);
+        }
