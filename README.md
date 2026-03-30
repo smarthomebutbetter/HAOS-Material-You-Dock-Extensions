@@ -122,7 +122,7 @@ Material-inspirierte Schnellzugriffskarten für wichtige Bereiche.
 ## ⚙️ Voraussetzungen
 
 - Home Assistant  
-- `button-card`  
+- `button-card by @RomRider`  
 - `card-mod`  
 - `swipe-card`  
 
